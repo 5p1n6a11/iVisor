@@ -37,3 +37,7 @@ https://github.com/Bareflank/hypervisor
 BitVisor入門 -- イントロダクション
 
 https://qiita.com/mmi/items/0b4fc2ac77a9d8e6ef9d
+
+BitVisor のコンパイル
+
+https://qiita.com/shina/items/8579d1c17962b0842431
