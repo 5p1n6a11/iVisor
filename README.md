@@ -3,7 +3,7 @@
 ## Virtualization Technology
 
 ```
-grep -E 'svm|vmx' /cpuinfo
+grep -E 'svm|vmx' /proc/cpuinfo
 ```
 
 ## Thin Hypervisor
