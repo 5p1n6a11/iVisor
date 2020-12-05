@@ -31,3 +31,9 @@ https://github.com/kkamagui/shadow-box-for-x86
 Bareflank
 
 https://github.com/Bareflank/hypervisor
+
+## BitVisor
+
+BitVisor入門 -- イントロダクション
+
+https://qiita.com/mmi/items/0b4fc2ac77a9d8e6ef9d
