@@ -56,3 +56,7 @@ https://qiita.com/mmi/items/0b4fc2ac77a9d8e6ef9d
 BitVisor のコンパイル
 
 https://qiita.com/shina/items/8579d1c17962b0842431
+
+BitVisor のインストール（ローカルディスク）
+
+https://qiita.com/shina/items/97b0ede50a6c1e85eb0a
