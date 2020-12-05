@@ -60,3 +60,7 @@ https://qiita.com/shina/items/8579d1c17962b0842431
 BitVisor のインストール（ローカルディスク）
 
 https://qiita.com/shina/items/97b0ede50a6c1e85eb0a
+
+BitVisor入門 -- Getting started
+
+https://qiita.com/mmi/items/5734db4ba8133a7758aa
