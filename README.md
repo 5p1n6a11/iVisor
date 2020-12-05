@@ -3,7 +3,22 @@
 ## Virtualization Technology
 
 ```
-grep -E 'svm|vmx' /proc/cpuinfo
+$ grep -E 'svm|vmx' /proc/cpuinfo
+```
+
+## build
+
+```
+$ make
+$ make -C boot/loader
+$ make -C boot/uefi-loader
+$ ls bitvisor.elf
+bitbisor.elf
+$ ls boot/loader/bootloader
+boot/loader/bootloader
+$ ls boot/loader/bootloaderusb
+boot/loader/bootloaderusb
+$ ls boot/uefi-loader/loadvmm.efi
 ```
 
 ## Thin Hypervisor
