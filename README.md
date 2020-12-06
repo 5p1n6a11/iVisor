@@ -28,7 +28,7 @@ Ubuntu 20.10 on VMware Workstation 16 Player
 
 ```
 $ sudo cp bitvisor.elf /boot/
-$ sudo vim /etc/grub.d/99_bitvisor
+$ sudo cp 99_bitvisor /etc/grub.d/99_bitvisor
 $ sudo chmod +x /etc/grub.d/99_bitvisor
 $ sudo update-grub2
 ```
