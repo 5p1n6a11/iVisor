@@ -19,6 +19,7 @@ boot/loader/bootloader
 $ ls boot/loader/bootloaderusb
 boot/loader/bootloaderusb
 $ ls boot/uefi-loader/loadvmm.efi
+boot/uefi-loader/loadvmm.efi
 ```
 
 ## Thin Hypervisor
