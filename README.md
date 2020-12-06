@@ -1,12 +1,12 @@
 # iVisor
 
-## Virtualization Technology
+### Virtualization Technology
 
 ```
 $ grep -E 'svm|vmx' /proc/cpuinfo
 ```
 
-## build
+### build
 
 ```
 $ make
@@ -20,6 +20,16 @@ $ ls boot/loader/bootloaderusb
 boot/loader/bootloaderusb
 $ ls boot/uefi-loader/loadvmm.efi
 boot/uefi-loader/loadvmm.efi
+```
+
+### test
+
+```
+$ cd tools/dbgsh
+$ make
+$ ./dbgsh
+> log
+> exit
 ```
 
 ## Thin Hypervisor
