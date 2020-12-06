@@ -1,12 +1,12 @@
 # iVisor
 
-## Virtualization Technology
+### Virtualization Technology
 
 ```
 $ grep -E 'svm|vmx' /proc/cpuinfo
 ```
 
-## build
+### build
 
 ```
 $ make
@@ -20,6 +20,27 @@ $ ls boot/loader/bootloaderusb
 boot/loader/bootloaderusb
 $ ls boot/uefi-loader/loadvmm.efi
 boot/uefi-loader/loadvmm.efi
+```
+
+### install
+
+Ubuntu 20.10 on VMware Workstation 16 Player
+
+```
+$ sudo cp bitvisor.elf /boot/
+$ sudo vim /etc/grub.d/99_bitvisor
+$ sudo chmod +x /etc/grub.d/99_bitvisor
+$ sudo update-grub2
+```
+
+### test
+
+```
+$ cd tools/dbgsh
+$ make
+$ ./dbgsh
+> log
+> exit
 ```
 
 ## Thin Hypervisor
