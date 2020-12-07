@@ -69,7 +69,9 @@ Bareflank
 
 https://github.com/Bareflank/hypervisor
 
-## BitVisor
+### References
+
+### BitVisor
 
 BitVisor入門 -- イントロダクション
 
