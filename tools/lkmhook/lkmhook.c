@@ -1,4 +1,7 @@
 #include <linux/module.h>
+#include <linux/init.h>
+#include <linux/kernel.h>
+#include <linux/kprobes.h>
 
 MODULE_DESCRIPTION("guest lkm hook");
 MODULE_AUTHOR("u2i");
@@ -113,3 +116,37 @@ thv_sys_finit_module(int fd, const char __user *uargs, int flags)
 
     return orig;
 }
+
+static struct kprobe kp = {
+    .symbol_name = "sys_call_table"
+};
+
+static int
+lkmhook_init(void)
+{
+    register_kprobe(&kp);
+    syscall_table = (void *) kp.addr;
+    unregister_kprobe(&kp);
+
+    pr_info("sys_call_table address is 0x%p\n", syscall_table);
+    save_original_syscall();
+    pr_info("original sys_init_module's address is %p\n", orig_sys_init_module);
+    pr_info("original sys_finit_module's address is %p\n", orig_sys_finit_module);
+
+    replace_system_call(thv_sys_init_module, thv_sys_finit_module);
+    pr_info("system call replaced\n");
+    return 0;
+}
+
+static void
+lkmhook_cleanup(void)
+{
+    pr_info("cleanup");
+    if (orig_sys_init_module && orig_sys_finit_module)
+        replace_system_call(orig_sys_init_module, orig_sys_finit_module);
+    if (mod_area_phys)
+        kfree(mod_area_phys);
+}
+
+module_init(lkmhook_init);
+module_exit(lkmhook_cleanup);
