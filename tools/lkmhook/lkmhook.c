@@ -26,7 +26,7 @@ save_original_syscall(void)
 }
 
 asmlinkage long
-htv_sys_init_module(void __user *umod, unsigned long len, const char __user *uargs)
+thv_sys_init_module(void __user *umod, unsigned long len, const char __user *uargs)
 {
     long orig;
     struct module *mod = NULL;
@@ -38,7 +38,7 @@ htv_sys_init_module(void __user *umod, unsigned long len, const char __user *uar
 }
 
 asmlinkage long
-htv_sys_finit_module(int fd, const char __user *uargs, int flags)
+thv_sys_finit_module(int fd, const char __user *uargs, int flags)
 {
     long orig;
     struct module *mod = NULL;
@@ -47,6 +47,33 @@ htv_sys_finit_module(int fd, const char __user *uargs, int flags)
     orig = orig_sys_finit_module(fd, uargs, flags);
 
     return orig;
+}
+
+static void
+change_page_attr_to_rw(pte_t *pte)
+{
+    set_pte_atomic(pte, pte_mkwrite(*pte));
+}
+
+static void
+change_page_attr_to_ro(pte_t *pte)
+{
+    set_pte_atomic(pte, pte_clear_flags(*pte, _PAGE_RW));
+}
+
+static void
+replace_system_call(void *new_init, void *new_finit)
+{
+    unsigned int level = 0;
+    pte_t *pte;
+
+    pte = lookup_address((unsigned long) syscall_table, &level);
+    /* Need to set r/w to a page which syscall_table is in. */
+    change_page_attr_to_rw(pte);
+    syscall_table[__NR_init_module] = new_init;
+    syscall_table[__NR_finit_module] = new_finit;
+    /* set back to read only */
+    change_page_attr_to_ro(pte);
 }
 
 static int
@@ -64,6 +91,9 @@ lkmhook_init(void)
     pr_info("original sys_init_module's address is %px\n", orig_sys_init_module);
     pr_info("original sys_finit_module's address is %px\n", orig_sys_finit_module);
 
+    replace_system_call(thv_sys_init_module, thv_sys_finit_module);
+    pr_info("system call replaced\n");
+
     return 0;
 }
 
@@ -71,6 +101,8 @@ static void
 lkmhook_cleanup(void)
 {
     pr_info("cleanup");
+    if (orig_sys_init_module && orig_sys_finit_module)
+        replace_system_call(orig_sys_init_module, orig_sys_finit_module);
 }
 
 module_init(lkmhook_init);
