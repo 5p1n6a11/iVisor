@@ -28,3 +28,9 @@ boot/login-simple/readdata
 *.bin.debug
 *.bin.s
 syntax: regexp
+bootloader
+bootloaderusb
+bsdriver.efi
+loadvmm.efi
+dbgsh
+dbgsh.exe
